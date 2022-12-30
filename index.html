@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>heart</title>
+		<style type="text/css">
+			body{
+				background: #000;
+				justify-content: center;
+				align-items: center;
+				display: flex;
+				min-height: 100vh;
+			}
+			.heart_box{
+				background: url('img/heart.png');
+				width: 100px;
+				height: 100px;
+				background-repeat: no-repeat;
+				background-position: center;
+				background-size: cover;
+				margin: auto;
+				border-radius: 20px;
+			}
+			.heart_box.heart_active{
+				animation: heart 1s linear infinite;
+			}
+		@keyframes  heart {
+		0%{
+			transform: scale(.5);
+		}
+		60%{
+			transform: scale(1.2);
+			box-shadow: -2px -2px 5px red,2px 2px 5px red;
+		}
+		100%{
+			transform: scale(.6);
+		}
+		}
+		button{
+		border: none;
+		background: #2196f3;
+		font-size: 20px;
+		text-transform: capitalize;
+		color: #fff;
+		font-weight: bolder;
+		padding: 10px 30px;
+		margin-top: 20px;
+		cursor: pointer;
+		border-radius: 30px;
+		}
+		.progress_bar{
+		background: #101811;
+		width: 400px;
+		height: 30px;
+		margin-top: 10px;
+		border-radius: 30px;
+		overflow: hidden;
+		border: 3px solid #333;
+		}
+		.progress_bar .inner_bar{
+		height: 25px;
+		background: #0e9910;
+		margin-top: 2px;
+		margin-left: 5px;
+		display: inline-block;
+		border-radius: 30px;
+		text-align: center;
+		color: #fff;
+		font-size: 16px;
+		filter: hue-rotate();
+		}
+		.inner_bar.filter_inner{
+		animation: filter infinite linear .5s;
+		}
+		@keyframes filter{
+		0%{
+			filter: hue-rotate(0deg);
+		}
+		100%{
+			filter: hue-rotate(360deg);
+		}
+		}
+		</style>
+	</head>
+	<body>
+		<section>
+			<div class="heart_box"></div>
+			<button>start</button>
+			<div class="progress_bar">
+				<div class="inner_bar"><span class="count_puls">23%</span></div>
+			</div>
+		</section>
+		<script type="text/javascript">
+			var pulse=document.querySelector(".count_puls");
+			var inner_bar=document.querySelector(".inner_bar");
+			var heart_box=document.querySelector(".heart_box");
+			var start_btn=document.querySelector("button");
+			var i=0;
+			start_btn.addEventListener("click",function () {
+				heart_box.classList.add("heart_active");
+				var rand=Math.floor(Math.random()*100);
+				setInterval(()=>{
+					var count_width=i+'px';
+					inner_bar.style.width =count_width;
+				pulse.textContent=i++;
+				inner_bar.classList.add("filter_inner")
+				if(i==300){
+					i--;
+					heart_box.classList.remove("heart_active");
+					inner_bar.classList.remove("filter_inner");
+					pulse.textContent=rand +' now your heart rate is 😱😊 '.toUpperCase();
+					clearInterval();
+				}
+			},50)
+				
+			})
+		</script>
+	</body>
+</html>
